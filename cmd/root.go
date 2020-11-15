@@ -35,6 +35,10 @@ var (
 				go checkUpdateEvery(getUpdateDuration())
 			}
 
+			if !textMode {
+				return gui()
+			}
+
 			key := viper.GetString("apikey")
 			if key == "" {
 				return errors.New("no API key in configuration, please use the login command")
@@ -78,6 +82,7 @@ var (
 	sc2api    *sc2replaystats.Client
 	startTime = time.Now()
 	termWidth = 80
+	textMode  bool
 )
 
 func automaticUpload(paths []string) (w *fsnotify.Watcher, err error) {
